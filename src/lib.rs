@@ -18,6 +18,7 @@ fn build_board(mut commands: Commands, assetServer: Res<AssetServer>)
     commands.spawn((
         BoardPiece,
         Sprite {
+            image: assetServer.load("Blue.png"),
             
             ..default()
         }
