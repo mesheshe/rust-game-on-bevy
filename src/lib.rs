@@ -13,12 +13,12 @@ impl Plugin for BoardPlugin {
 }
 
 
-fn build_board(mut commands: Commands, assetServer: Res<AssetServer>)
+fn build_board(mut commands: Commands, asset_server: Res<AssetServer>)
 {
     commands.spawn((
         BoardPiece,
         Sprite {
-            image: assetServer.load("Blue.png"),
+            image: asset_server.load("Blue.png"),
             
             ..default()
         }

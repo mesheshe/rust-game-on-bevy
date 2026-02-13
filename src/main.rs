@@ -12,7 +12,7 @@ const WINDOW_HEIGHT: f32 = 720.;
 const GAME_WINDOW_HEIGHT: f32 = 648.;
 const GAME_WINDOW_WIDTH: f32 = 324.;
 
-fn setup(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>, mut materials: ResMut<Assets<ColorMaterial>>)
+fn setup(mut commands: Commands)
 {
     commands.spawn(Camera2d::default());
     
@@ -49,7 +49,7 @@ fn main() {
     //unsafe {
         // wsl issue for XDG Settings Portal
        // std::env::set_var("WAYLAND_DISPLAY", "");
-   // }
+   // } TO RUN ON WSL DO THE FOLLOWING: unset WAYLAND_DISPLAY && cargo run
 
     App::new()
         .insert_resource(ClearColor(Color::linear_rgb(0.29, 0.31, 0.41)))
