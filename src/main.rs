@@ -1,22 +1,24 @@
-use bevy::{prelude::*, window::WindowResolution}; 
+use bevy::{camera::ScalingMode, prelude::*, window::WindowResolution}; 
 
 use rust_game::*;
 
 
-const WINDOW_WIDTH: f32 = 1024.;
-const WINDOW_HEIGHT: f32 = 720.;
 
-//const WINDOW_BOTTOM_HEIGHT: f32 = WINDOW_HEIGHT / - 2.;
-//const WINDOW_LEFT_WIDTH: f32 = WINDOW_WIDTH / - 2.;
 
-const GAME_WINDOW_HEIGHT: f32 = 648.;
-const GAME_WINDOW_WIDTH: f32 = 324.;
+
+
+
 
 fn setup(mut commands: Commands)
 {
-    commands.spawn(Camera2d::default());
+    commands.spawn((Camera2d,
+                           Projection::Orthographic(OrthographicProjection {
+                                scaling_mode : ScalingMode::AutoMax { max_width: WINDOW_WIDTH, max_height: WINDOW_HEIGHT },
+                                ..OrthographicProjection::default_2d()})
+                            )
+                    );
     
-
+    
     commands.spawn((
         Node{
             // left and top specify position
