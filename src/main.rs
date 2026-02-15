@@ -20,6 +20,7 @@ fn setup(mut commands: Commands)
     
     
     commands.spawn((
+        Visibility::Hidden,  
         Node{
             // left and top specify position
             left : Val::Px((WINDOW_WIDTH as f32 - GAME_WINDOW_WIDTH)/2.),
