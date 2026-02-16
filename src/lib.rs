@@ -7,6 +7,8 @@ pub const WINDOW_HEIGHT: f32 = 720.;
 //const WINDOW_BOTTOM_Y: f32 = WINDOW_HEIGHT / - 2.;
 //const WINDOW_LEFT_X: f32 = WINDOW_WIDTH / - 2.;
 
+enum TetrominoPiece {I, O, T, J, L, S, Z}
+
 const BORDER_PADDING: f32 = 32.4 / 2.;
 
 pub const GAME_WINDOW_HEIGHT: f32 = 648.;
@@ -15,7 +17,23 @@ pub struct BoardPlugin;
 
 #[derive(Component)]
 struct BorderPart;
+#[derive(Component)]
+struct Tetromino;
 
+// PositionComponent, ShapeComponent, 
+// RenderComponent-color, ActiveComponent
+
+// Handle Input Systek(rotation, lateral movement, and hard/soft drops)
+// 
+
+
+
+/*
+    L J I O S Z T
+
+   rotate is that a system
+    what about wall kicks
+*/
 #[derive(Component)]
 struct GridPart;
 
@@ -35,7 +53,7 @@ fn build_board(mut commands: Commands, asset_server: Res<AssetServer>)
         BorderPart,
         Sprite {
             image: asset_server.load("Border.png"),
-            custom_size: Some(Vec2::new(GAME_WINDOW_WIDTH + BORDER_PADDING,GAME_WINDOW_HEIGHT + BORDER_PADDING)),
+            custom_size: Some(Vec2::new(GAME_WINDOW_WIDTH + BORDER_PADDING,GAME_WINDOW_HEIGHT + BORDER_PADDING - 0.2)),
             ..default()
         },
         Transform::from_xyz(0., 0., 1.0),
