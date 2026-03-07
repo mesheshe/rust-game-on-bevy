@@ -23,8 +23,12 @@ struct BorderPart;
 #[derive(Component)]
 struct Tetromino(TetrominoPiece);
 
+#[derive(Resource)]
+pub struct BoardData{
+    pub data: [[u8;20]; 10]    
+}
 
-// PositionComponent, ShapeComponent, 
+// PositionComponent, ShapeComponent, jk
 // RenderComponent-color, ActiveComponent
 
 // Handle Input SysteM(rotation, lateral movement, and hard/soft drops)
@@ -82,13 +86,15 @@ fn build_board(mut commands: Commands, asset_server: Res<AssetServer>)
 
 // has rendered to the screen the small piece
 // now we want to work on the layer before 
+// Render map system -> Will render the internal map for player to csee
 fn test_piece(mut commands: Commands, asset_server: Res<AssetServer>)
 {
     const X: f32 = 9.; // (0 -> 9)
     const Y: f32 = 17.;// (0 -> 19)
 
-    const CORRECTED_X: f32 = X - 5.; // (-5 -> 4) left to right
-    const CORRECTED_Y: f32 = -Y + 9.; //(9 -> -10) to[ to bottom ]
+    let (CORRECTED_X, CORRECTED_Y) = position_correction(X, Y);
+    // Spawn a second piece and do it in such a way you are not calling a draw call 
+    // every time 
 
     commands.spawn((
         Tetromino(TetrominoPiece::I),
@@ -97,7 +103,13 @@ fn test_piece(mut commands: Commands, asset_server: Res<AssetServer>)
             custom_size: Some(Vec2::new(32.4,32.4)),
             ..default()
         },
-        Transform::from_xyz(CORRECTED_X * 32.4 + 32.4 / 2., CORRECTED_Y * 32.4 + 32.4 / 2., 1.0),
+        Transform::from_xyz(CORRECTED_X, CORRECTED_Y, 1.0),
     ));
 }
 
+fn position_correction(x: f32, y: f32) -> (f32, f32){
+    let corrected_x: f32 = x - 5.; // (-5 -> 4) left to right
+    let corrected_y: f32 = -y + 9.; //(9 -> -10) to[ to bottom ]
+
+    (corrected_x * 32.4 + 32.4 / 2., corrected_y * 32.4 + 32.4 / 2.)
+}

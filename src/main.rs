@@ -56,6 +56,7 @@ fn main() {
 
     App::new()
         .insert_resource(ClearColor(Color::linear_rgb(0.29, 0.31, 0.41)))
+        .insert_resource(BoardData{data: [[0;20];10]})
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window { resolution: WindowResolution::new(WINDOW_WIDTH as u32, WINDOW_HEIGHT as u32), title: "Bevy Game".to_string(), resizable: false, .. default() }),
             ..default()
