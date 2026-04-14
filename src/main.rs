@@ -17,8 +17,7 @@ fn setup(mut commands: Commands)
                                 ..OrthographicProjection::default_2d()})
                             )
                     );
-    
-    /* */
+    /* 
     commands.spawn((
         Visibility::Hidden,  
         Node{
@@ -35,16 +34,20 @@ fn setup(mut commands: Commands)
         //BackgroundColor(Color::BLACK),
 
     ));
-    /* 
-    let mesh_handle = meshes.add(Circle::new(10.));
-    let material_handle = materials.add(ColorMaterial::from_color(RED));
-
-    commands.spawn((
-        Mesh2d(mesh_handle), 
-        MeshMaterial2d(material_handle),
-        Transform::from_xyz(0., 0., 0.),
-    ));
     */
+}
+
+fn generate_board()-> [[u8; 20];10]{
+    let mut board = [[TetrominoPiece::None as u8;20];10];
+    
+    board[0][0] = TetrominoPiece::I as u8;
+    board[0][9] = TetrominoPiece::J as u8;
+    board[9][0] = TetrominoPiece::Z as u8;
+    board[9][9] = TetrominoPiece::O as u8;
+    board[0][19] = TetrominoPiece::L as u8;
+    board[9][19] = TetrominoPiece::S as u8;
+
+    return board;
 }
 
 fn main() {
@@ -56,7 +59,7 @@ fn main() {
 
     App::new()
         .insert_resource(ClearColor(Color::linear_rgb(0.29, 0.31, 0.41)))
-        .insert_resource(BoardData{data: [[0;20];10]})
+        .insert_resource(BoardData{data: generate_board()})
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window { resolution: WindowResolution::new(WINDOW_WIDTH as u32, WINDOW_HEIGHT as u32), title: "Bevy Game".to_string(), resizable: false, .. default() }),
             ..default()
